@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-kgjjj39ljk34@s4)7*qi@5(try15vcn4*k9^vh)-pr+r1xhms@"
-
+TOKEN_BOT = "6636548442:AAF3iREGHntdNBxymTruzotLhS1LBcvyLI8"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -73,6 +73,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "first_app",
     "first_hw_app",
+    "second_app",
+    "third_app",
+    "bot_app",
+    "second_hw_app",
 ]
 
 MIDDLEWARE = [
@@ -90,7 +94,9 @@ ROOT_URLCONF = "geekprojects.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            BASE_DIR / 'templates',
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
