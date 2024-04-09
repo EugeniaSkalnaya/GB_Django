@@ -10,8 +10,6 @@ class Client(models.Model):
     address = models.TextField('Address', blank=True, null=True)
     registered = models.DateTimeField('Registered', auto_now_add=True)
 
-
-
     def __str__(self) -> str:
         return f'{self.name}, {self.email}, {self.phone_number}'
 
@@ -24,18 +22,18 @@ class Product(models.Model):
     count = models.PositiveIntegerField('Number of products', default=1)
     added = models.DateTimeField('Added date', auto_now_add=True)
 
-
-
     def __str__(self):
-        return f'{self.name}, {self.description}, {self.price}, {self.count}, {self.added}'
+        return f'{self.name}, {self.description}, {self.price}, {self.count}, {self.added}, {self.image}'
 
+
+class ImageProduct(Product):
+    image = models.ImageField("Product image", default=None)
 
 class Order(models.Model):
     client = models.ForeignKey(Client, verbose_name='client', on_delete=models.CASCADE)
-    product = models.ManyToManyField('Product', verbose_name='Products')
+    products = models.ManyToManyField('Product', verbose_name='Products')
     total_amount = models.DecimalField('Total amount', max_digits=10, decimal_places=2, default=0)
     created = models.DateTimeField('Created', auto_now_add=True)
 
-
     def __str__(self) -> str:
-        return f'{self.client}, {self.total_amount}, {self.product}, {self.created}'
+        return f'{self.client}, {self.total_amount}, {self.products}, {self.created}'

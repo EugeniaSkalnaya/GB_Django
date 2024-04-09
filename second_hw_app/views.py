@@ -1,8 +1,12 @@
 from datetime import timezone
 from datetime import timedelta
+
+from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from second_hw_app.models import Product, Client, Order
+
+from second_hw_app.forms import ImageForm
 
 
 def get_clients(request):
@@ -14,6 +18,16 @@ def get_clients(request):
 def get_client(request, pk):
     client = Client.objects.filter(pk=pk)
     return HttpResponse(client)
+
+
+def get_orders(request):
+    orders = Order.objects.all()
+    return HttpResponse(orders)
+
+
+def get_order(request, pk):
+    orders = Order.objects.filter(pk=pk)
+    return HttpResponse(orders)
 
 
 def get_products(request):
@@ -56,3 +70,15 @@ def client_order_products(request, pk: int, days: int):
                       'client': client,
                       'products': product_set,
                       'days': days})
+
+
+def upload_image(request):
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.cleaned_data['image']
+            fs = FileSystemStorage()
+            fs.save(image.name, image)
+    else:
+        form = ImageForm()
+    return render(request, 'second_hw_app/image_form.html', {'form': form})
