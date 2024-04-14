@@ -9,11 +9,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         for i in range(50):
-            product = Product(
+            products = Product(
                 name=f'Name {i}',
                 description=f'description of {i} product',
                 price=randint(1, 10000),
                 count=randint(1, 5)
             )
-            product.save()
-            self.stdout.write(f'{product}')
+            products.save()
+            self.stdout.write(f'{products}')

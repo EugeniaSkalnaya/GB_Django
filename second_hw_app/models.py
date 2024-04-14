@@ -22,12 +22,19 @@ class Product(models.Model):
     count = models.PositiveIntegerField('Number of products', default=1)
     added = models.DateTimeField('Added date', auto_now_add=True)
 
-    def __str__(self):
-        return f'{self.name}, {self.description}, {self.price}, {self.count}, {self.added}, {self.image}'
+    class Meta:
+        verbose_name = 'Product'
+        verbose_name_plural = 'Products'
+        ordering = ('-added',)
 
 
 class ImageProduct(Product):
     image = models.ImageField("Product image", default=None)
+
+
+    def __str__(self):
+        return f'{self.name}, {self.description}, {self.price}, {self.count}, {self.added}, {self.image}'
+
 
 class Order(models.Model):
     client = models.ForeignKey(Client, verbose_name='client', on_delete=models.CASCADE)
